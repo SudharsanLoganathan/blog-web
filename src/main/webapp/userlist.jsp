@@ -8,7 +8,6 @@
 <title>Users List</title>
 </head>
 <body>
-<a href="/">Home</a>
 	<h3>User List</h3>
 	<table>
 		<tr>
@@ -24,5 +23,11 @@
 			</tr>
 		</c:forEach>
 	</table>
+<a href="../users/logout"> <h3>Logout</h3> </a>
 </body>
+	<h3>Delete User</h3>
+	<form action="../users/delete" method="GET">
+	UserId: <input type="text" name="userId" required placeholder="Enter a User Id"><br>
+	<br><button type="submit">Delete</button></form>
+</form>
 </html>

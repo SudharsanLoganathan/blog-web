@@ -50,7 +50,13 @@ public class UserController {
 			try {
 				UserDetail user=userService.serviceLogin(userDetail);
 				session.setAttribute("LOGGED_USER", user);
+				if(user.getRoleId().getId()==2){
 				return "../articles/viewArticles";
+				}
+				else
+				{
+					return "../users";
+				}
 			} 
 			catch (ServiceException e) {
 				modelMap.addAttribute("LOGIN_ERROR",e.getMessage());
@@ -67,6 +73,19 @@ public class UserController {
 			} else {
 				return "redirect:/";
 			}
+		}
+		@GetMapping("/delete")
+		public String delete(@RequestParam("userId") int userId){
+			UserDetail userDetail=new UserDetail();
+			userDetail.setId(userId);
+			UserService userService=new UserService();
+			try{
+			userService.serviceDelete(userDetail);
+			}
+			catch(ServiceException e){
+				e.printStackTrace();
+			}
+			return "redirect:../users";
 		}
 	}	
 
