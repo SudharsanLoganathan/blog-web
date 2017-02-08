@@ -30,10 +30,10 @@ public class UserController {
 
 		@GetMapping("/save")
 		public String store(@RequestParam("Name") String name, @RequestParam("Password") String password,
-				@RequestParam("Email") String emailid, @RequestParam("RoleId") int role) {
+				@RequestParam("EmailId") String emailid, @RequestParam("RoleId") int role) {
 			userDetail.setName(name);
-			userDetail.setPassword(password);
 			userDetail.setEmailId(emailid);
+			userDetail.setPassword(password);
 			Role r=new Role();
 			r.setId(role);
 			userDetail.setRoleId(r);
@@ -45,16 +45,17 @@ public class UserController {
 			return "redirect:../register.jsp";
 		}
 		@GetMapping("/login")
-		public String store(@RequestParam("userName") String name, @RequestParam("password") String password) {
-			userDetail.setName(name);
+		public String store(@RequestParam("emailID") String email, @RequestParam("password") String password){
+			userDetail.setEmailId(email);
 			userDetail.setPassword(password);
 			try {
-				userService.serviceLogin(userDetail);;
+				
+				userService.serviceLogin(userDetail);
+
 			} catch (ServiceException e) {
 				e.printStackTrace();
 			}
-			
-			return "redirect:../register.jsp";
-
+			return "../postArticle.jsp";
 		}
-}
+		}	
+
