@@ -2,6 +2,8 @@ package com.sudharsan.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blog.exception.ServiceException;
-import com.blog.model.Role;
 import com.blog.model.UserDetail;
 import com.blog.service.UserService;
 @Controller
@@ -30,13 +31,10 @@ public class UserController {
 
 		@GetMapping("/save")
 		public String store(@RequestParam("Name") String name, @RequestParam("Password") String password,
-				@RequestParam("EmailId") String emailid, @RequestParam("RoleId") int role) {
+				@RequestParam("EmailId") String emailid) {
 			userDetail.setName(name);
 			userDetail.setEmailId(emailid);
 			userDetail.setPassword(password);
-			Role r=new Role();
-			r.setId(role);
-			userDetail.setRoleId(r);
 			try {
 				userService.serviceSave(userDetail);
 			} catch (ServiceException e) {
@@ -45,17 +43,19 @@ public class UserController {
 			return "redirect:../register.jsp";
 		}
 		@GetMapping("/login")
-		public String store(@RequestParam("emailID") String email, @RequestParam("password") String password){
+		public String store(HttpSession session,@RequestParam("emailid") String email, @RequestParam("password") String password,ModelMap modelMap){
 			userDetail.setEmailId(email);
 			userDetail.setPassword(password);
 			try {
-				
-				userService.serviceLogin(userDetail);
-
-			} catch (ServiceException e) {
-				e.printStackTrace();
+				Integer userId=userService.serviceLogin(userDetail);
+				session.setAttribute("LOGGED_USER", userId);
+				return "../articles/viewArticles";
+			} 
+			catch (ServiceException e) {
+				//e.printStackTrace();
+				modelMap.addAttribute("LOGIN_ERROR",e.getMessage());
+				return "redirect:../register.jsp";
 			}
-			return "../postArticle.jsp";
 		}
 		}	
 

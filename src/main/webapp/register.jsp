@@ -10,15 +10,15 @@
 UserName: <input type="text" name="Name" required autofocus><br>
 <br>Password: <input type="password" name="Password" required><br>
 <br>Email Id: <input type="text" name="EmailId" required><br>
-<br>Role Id: <input type="text" name="RoleId" required><br>
 <br><button type="submit">Submit</button> 
 </form>
 <br>
 	<h3>Login User</h3>
 	<form action="/users/login">
-		Email ID :&nbsp;&nbsp; <input type="text" name="emailID" required autofocus /> <br>
+		Email ID :&nbsp;&nbsp; <input type="text" name="emailid" required autofocus /> <br>
 		<br>Password : <input type="password" name="password" required  /><br>
 		<br><button type="submit">Submit</button>
 	</form>
+	${LOGIN_ERROR}
 </body>
 </html>

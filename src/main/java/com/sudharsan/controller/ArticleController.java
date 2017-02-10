@@ -1,12 +1,18 @@
 package com.sudharsan.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.blog.dao.ArticleDAO;
 import com.blog.dao.SeedCatagoryDAO;
+import com.blog.exception.ServiceException;
 import com.blog.model.Article;
 import com.blog.model.SeedCatagory;
 import com.blog.model.UserDetail;
@@ -16,11 +22,11 @@ import com.blog.service.ArticleService;
 public class ArticleController {
 	@GetMapping("/publish")
 	public String publish(@RequestParam("title") String title, @RequestParam("content") String content,
-			@RequestParam("userId") int userId, @RequestParam("catagory") String catagory) {
+			HttpSession session, @RequestParam("catagory") String catagory) {
 		Article article = new Article();
 		SeedCatagory seedCatagory=new SeedCatagory();
 		UserDetail userDetail=new UserDetail();
-		userDetail.setId(userId);
+		userDetail.setId(Integer.parseInt(session.getAttribute("LOGGED_USER").toString()));
 		article.setUserId(userDetail);
 		article.setTitle(title);
 		article.setContent(content);
@@ -30,6 +36,32 @@ public class ArticleController {
 		SeedCatagoryDAO seedCatagoryDAO=new SeedCatagoryDAO();
 		ArticleService articleService = new ArticleService();
 		articleService.postArticleService(article,seedCatagory,articleDAO,seedCatagoryDAO );
-		return "../register.jsp";
+		return "../articles/viewArticles";
 }
+	@GetMapping("viewArticles")
+	public String viewArticles(ModelMap modelMap, HttpSession session) {
+		ArticleService articleService=new ArticleService();
+		UserDetail userDetail=new UserDetail();
+		userDetail.setId(Integer.parseInt(session.getAttribute("LOGGED_USER").toString()));
+		List<Article> articleList =articleService.serviceGetArticlesPublishedByUser(userDetail);
+		modelMap.addAttribute("update", 0);
+		modelMap.addAttribute("ARTICLE_LIST", articleList);
+		return "../articlesList.jsp";
+	}
+	@GetMapping("update")
+	public String updateArticle(@RequestParam("userId")int userId,@RequestParam("title")String Title,@RequestParam("content")String content){
+		ArticleService articleService=new ArticleService();
+		Article article=new Article();
+		article.setId(userId);
+		article.setTitle(Title);
+		article.setContent(content);
+		try{
+		articleService.serviceUpdate(article);
+		}
+		catch(ServiceException e){
+			e.printStackTrace();
+		}
+		return "../articlesList.jsp";
+
+	}
 }
