@@ -54,7 +54,7 @@ public class UserController {
 			catch (ServiceException e) {
 				//e.printStackTrace();
 				modelMap.addAttribute("LOGIN_ERROR",e.getMessage());
-				return "redirect:../register.jsp";
+				return "../register.jsp";
 			}
 		}
 		}	
