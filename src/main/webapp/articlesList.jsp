@@ -5,8 +5,9 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <body>
-	<a href="../postArticle.jsp"> <h3>Post a new Article</h3></a>
+	<a href="../postArticle.jsp"> <h3>Post a new Article/View comment for article</h3></a>
 	<a href="../updateArticle.jsp"> <h3>Update/Delete an Article</h3></a>
+	
 		<h3>Published Articles</h3>
 	<table>
 		<tr>
@@ -30,9 +31,9 @@
 	</table>
 	<h3>Comment an Article</h3> 
 	<form action="/comments/save" method="GET">
-				ArticleId: <input type="text" name="articleId" required><br>
+				ArticleId: <input type="text" name="articleId" required placeholder="Enter an Article Id"><br>
 	            <input type="hidden" name="userId" value="<%=session.getAttribute("LOGGED_USER") %>" ><br>
-				Comment: <input type="text" name="comment" required><br>
+				Comment: <input type="text" name="comment" required placeholder="Enter a comment"><br>
 				<br><button type="submit">Comment</button></form>
 	</body>
 </html>

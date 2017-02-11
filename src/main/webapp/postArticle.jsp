@@ -17,6 +17,10 @@
 		Category : <input type="text" name="catagory"  required placeholder="Enter Article Category"/>
 		<button type="submit">Submit</button>
 </form>
-
+<h3>View comments for article </h3>
+	<form action="/comments/viewCommentByArticle" method="GET">
+		Title: <input type="text" name="title" required autofocus placeholder="Enter Article Title"/>
+		<button type="submit">Submit</button>
+</form>
 </body>
 </html>
