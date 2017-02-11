@@ -49,19 +49,31 @@ public class ArticleController {
 		return "../articlesList.jsp";
 	}
 	@GetMapping("update")
-	public String updateArticle(@RequestParam("userId")int userId,@RequestParam("title")String Title,@RequestParam("content")String content){
+	public String updateArticle(HttpSession session,@RequestParam("articleId")int articleId,@RequestParam("title")String Title,@RequestParam("content")String content,ModelMap modelMap){
 		ArticleService articleService=new ArticleService();
 		Article article=new Article();
-		article.setId(userId);
+		article.setId(articleId);
 		article.setTitle(Title);
 		article.setContent(content);
 		try{
 		articleService.serviceUpdate(article);
 		}
 		catch(ServiceException e){
-			e.printStackTrace();
+			modelMap.addAttribute("UPDATE_ERROR",e.getMessage());
 		}
-		return "../articlesList.jsp";
-
+		return "../articles/viewArticles";
+	}
+     @GetMapping("delete")
+ 	public String deleteArticle(HttpSession session,@RequestParam("articleId")int articleId,ModelMap modelMap){
+ 		ArticleService articleService=new ArticleService();
+ 		Article article=new Article();
+ 		article.setId(articleId);
+ 		try{
+ 		articleService.serviceDelete(article);
+ 		}
+ 		catch(ServiceException e){
+ 			modelMap.addAttribute("DELETE_ERROR",e.getMessage());
+ 		}
+ 		return "../articles/viewArticles";
 	}
 }
