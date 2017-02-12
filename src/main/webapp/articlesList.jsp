@@ -24,7 +24,9 @@
 				<td>${c.content}</td>
 				<td>${c.createdDate}</td>
 			</tr>
+			 
 		</c:forEach>
+		
 	</table> 
 	</body>
 </html>

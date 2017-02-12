@@ -14,17 +14,13 @@
 		<tr>
 			<td>Id&nbsp;&nbsp;&nbsp;</td>
 			<td>UserName&nbsp;&nbsp;&nbsp;</td>
-			<td>Password&nbsp;&nbsp;&nbsp;</td>
 			<td>&nbsp;&nbsp;EmailId&nbsp;&nbsp;&nbsp;</td>
-			<td>RoleId&nbsp;&nbsp;&nbsp;</td>
 		</tr>
 		<c:forEach var="c" items="${USER_LIST}" varStatus="i">
 			<tr>
 				<td>&nbsp;${c.id}&nbsp;</td>
 				<td>&nbsp;${c.name}&nbsp;</td>
-				<td>&nbsp;${c.password}</td>
 				<td>&nbsp;${c.emailId}&nbsp;</td>
-				<td>&nbsp;&nbsp;&nbsp;${(c.roleId).id}&nbsp;</td>
 			</tr>
 		</c:forEach>
 	</table>

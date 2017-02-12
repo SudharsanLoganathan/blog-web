@@ -31,14 +31,14 @@ public class UserController {
 
 		@GetMapping("/save")
 		public String store(@RequestParam("Name") String name, @RequestParam("Password") String password,
-				@RequestParam("EmailId") String emailid) {
+				@RequestParam("EmailId") String emailid,ModelMap modelMap) {
 			userDetail.setName(name);
 			userDetail.setEmailId(emailid);
 			userDetail.setPassword(password);
 			try {
 				userService.serviceSave(userDetail);
 			} catch (ServiceException e) {
-				e.printStackTrace();
+				modelMap.addAttribute("SIGNUP_ERROR",e.getMessage());
 			}
 			return "redirect:../register.jsp";
 		}
@@ -52,10 +52,10 @@ public class UserController {
 				return "../articles/viewArticles";
 			} 
 			catch (ServiceException e) {
-				//e.printStackTrace();
 				modelMap.addAttribute("LOGIN_ERROR",e.getMessage());
 				return "../register.jsp";
 			}
 		}
+		
 		}	
 

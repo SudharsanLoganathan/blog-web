@@ -76,4 +76,11 @@ public class ArticleController {
  		}
  		return "../articles/viewArticles";
 	}
+     @GetMapping("viewAll")
+ 	public String viewAllArticles(ModelMap modelMap) {
+ 		ArticleService articleService=new ArticleService();
+ 		List<Article> articlesList =articleService.serviceListAllArticles();
+  		modelMap.addAttribute("ARTICLES_LIST", articlesList);
+ 		return "../viewAllArticle.jsp";
+ 	}
 }

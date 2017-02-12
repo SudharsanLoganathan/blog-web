@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>User Initialization</title>
 </head>
 <body>
 <h3>Sign Up</h3>
@@ -11,6 +11,8 @@ UserName: <input type="text" name="Name" required autofocus><br>
 <br>Email Id: <input type="text" name="EmailId" required><br>
 <br><button type="submit">Submit</button> 
 </form>
+	${SIGNUP_ERROR}
+
 <br>
 	<h3>Login User</h3>
 	<form action="/users/login">
