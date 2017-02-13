@@ -27,6 +27,12 @@
 			 
 		</c:forEach>
 		
-	</table> 
+	</table>
+	<h3>Comment an Article</h3> 
+	<form action="/comments/save" method="GET">
+				ArticleId: <input type="text" name="articleId" required><br>
+	            <input type="hidden" name="userId" value="<%=session.getAttribute("LOGGED_USER") %>" ><br>
+				Comment: <input type="text" name="comment" required><br>
+				<br><button type="submit">Comment</button></form>
 	</body>
 </html>

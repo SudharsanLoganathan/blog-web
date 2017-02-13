@@ -12,9 +12,9 @@
 
 	<form action="/articles/publish" method="GET">
 	    <input type="hidden" name="userId" value="<%=session.getAttribute("LOGGED_USER") %>" >
-		Title: <input type="text" name="title" required autofocus />
-		Content : <input type="text" name="content" required />
-		Category : <input type="text" name="catagory"  required />
+		Title: <input type="text" name="title" required autofocus placeholder="Enter Article Title"/>
+		Content : <input type="text" name="content" required placeholder="Enter Article content"/>
+		Category : <input type="text" name="catagory"  required placeholder="Enter Article Category"/>
 		<button type="submit">Submit</button>
 </form>
 

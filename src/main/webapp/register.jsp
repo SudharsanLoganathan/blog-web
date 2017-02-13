@@ -6,9 +6,9 @@
 <body>
 <h3>Sign Up</h3>
 <form action="/users/save">
-UserName: <input type="text" name="Name" required autofocus><br>
-<br>Password: <input type="password" name="Password" required><br>
-<br>Email Id: <input type="text" name="EmailId" required><br>
+UserName: <input type="text" name="Name" required autofocus placeholder="Enter your UserName"><br>
+<br>Password: <input type="password" name="Password" required placeholder="Enter your password"><br>
+<br>Email Id: <input type="email" name="EmailId" required placeholder="Enter your EmailId"><br>
 <br><button type="submit">Submit</button> 
 </form>
 	${SIGNUP_ERROR}
@@ -16,8 +16,8 @@ UserName: <input type="text" name="Name" required autofocus><br>
 <br>
 	<h3>Login User</h3>
 	<form action="/users/login">
-		Email ID :&nbsp;&nbsp; <input type="text" name="emailid" required autofocus /> <br>
-		<br>Password : <input type="password" name="password" required  /><br>
+		Email ID :&nbsp;&nbsp; <input type="email" name="emailid" required autofocus placeholder="Enter your EmailId"/> <br>
+		<br>Password : <input type="password" name="password" required  placeholder="Enter your password"/><br>
 		<br><button type="submit">Submit</button>
 	</form>
 	${LOGIN_ERROR}
