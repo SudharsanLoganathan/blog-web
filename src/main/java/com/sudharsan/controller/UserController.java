@@ -2,6 +2,7 @@ package com.sudharsan.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -48,7 +49,6 @@ public class UserController {
 			userDetail.setPassword(password);
 			try {
 				UserDetail user=userService.serviceLogin(userDetail);
-				System.out.println(user);
 				session.setAttribute("LOGGED_USER", user);
 				return "../articles/viewArticles";
 			} 
@@ -57,6 +57,16 @@ public class UserController {
 				return "../register.jsp";
 			}
 		}
-		
-		}	
+		@GetMapping("/logout")
+		public String logout(HttpServletRequest request) {
+			HttpSession httpSession = request.getSession(false);
+			Object user = httpSession.getAttribute("LOGGED_USER");
+			if (user != null) {
+				httpSession.invalidate();
+				return "redirect:/";
+			} else {
+				return "redirect:/";
+			}
+		}
+	}	
 

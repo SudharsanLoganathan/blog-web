@@ -36,4 +36,6 @@
 				Comment: <input type="text" name="comment" required placeholder="Enter a comment"><br>
 				<br><button type="submit">Comment</button></form>
 	</body>
+		<a href="../users/logout"> <h3>Logout</h3></a>
+	
 </html>
