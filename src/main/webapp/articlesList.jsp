@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<body>
+<body><h3>Welcome ${LOGGED_USER.name}!!!</h3>
 	<a href="../postArticle.jsp"> <h3>Post a new Article/View comment for article</h3></a>
 	<a href="../updateArticle.jsp"> <h3>Update/Delete an Article</h3></a>
 	

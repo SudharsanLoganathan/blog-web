@@ -26,7 +26,9 @@ public class ArticleController {
 		Article article = new Article();
 		SeedCatagory seedCatagory=new SeedCatagory();
 		UserDetail userDetail=new UserDetail();
-		userDetail.setId(Integer.parseInt(session.getAttribute("LOGGED_USER").toString()));
+		UserDetail user=(UserDetail)session.getAttribute("LOGGED_USER");
+		userDetail.setId(user.getId());
+		//userDetail.setId(Integer.parseInt(session.getAttribute("LOGGED_USER").toString()));
 		article.setUserId(userDetail);
 		article.setTitle(title);
 		article.setContent(content);
@@ -42,7 +44,8 @@ public class ArticleController {
 	public String viewArticles(ModelMap modelMap, HttpSession session) {
 		ArticleService articleService=new ArticleService();
 		UserDetail userDetail=new UserDetail();
-		userDetail.setId(Integer.parseInt(session.getAttribute("LOGGED_USER").toString()));
+		UserDetail user=(UserDetail)session.getAttribute("LOGGED_USER");
+		userDetail.setId(user.getId());
 		List<Article> articleList =articleService.serviceGetArticlesPublishedByUser(userDetail);
 		modelMap.addAttribute("update", 0);
 		modelMap.addAttribute("ARTICLE_LIST", articleList);

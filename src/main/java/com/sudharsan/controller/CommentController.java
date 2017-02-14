@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.mail.EmailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,27 +16,34 @@ import com.blog.exception.ServiceException;
 import com.blog.model.Article;
 import com.blog.model.Comment;
 import com.blog.model.UserDetail;
+import com.blog.service.ArticleService;
 import com.blog.service.CommentsService;
+import com.blog.util.MailUtil;
 
 @Controller
 @RequestMapping("/comments")
 public class CommentController {
     @GetMapping("/save")
 public String commentSave(@RequestParam("articleId") int articleId,HttpSession session,
-		@RequestParam("comment") String comment){
+		@RequestParam("comment") String comment,HttpSession httpSession) throws ServiceException,EmailException{
     	Comment comments=new Comment();
     	Article article=new Article();
-    	UserDetail userDetail=new UserDetail();
+    	ArticleService articleService=new ArticleService();
     	article.setId(articleId);
-    	userDetail.setId(Integer.parseInt(session.getAttribute("LOGGED_USER").toString()));    	
+    	UserDetail userDetail=new UserDetail();
+		UserDetail user=(UserDetail)session.getAttribute("LOGGED_USER");
+    	UserDetail receiverMail=articleService.serviceGetEmailByArticleId(articleId);
+		userDetail.setId(user.getId());
+		String name=user.getName();
     	comments.setArticleId(article);
     	comments.setUserId(userDetail);
     	comments.setComments(comment);
     	CommentsService commentsService=new CommentsService();
 	try{
 		commentsService.serviceSave(comments);
+		MailUtil.sendSimpleMail(comments,receiverMail,name);
 	}
-	catch(ServiceException e){
+	catch(ServiceException | EmailException e){
 		e.printStackTrace();
 	}
 	return "../articles/viewArticles";

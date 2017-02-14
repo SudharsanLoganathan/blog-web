@@ -47,8 +47,9 @@ public class UserController {
 			userDetail.setEmailId(email);
 			userDetail.setPassword(password);
 			try {
-				Integer userId=userService.serviceLogin(userDetail);
-				session.setAttribute("LOGGED_USER", userId);
+				UserDetail user=userService.serviceLogin(userDetail);
+				System.out.println(user);
+				session.setAttribute("LOGGED_USER", user);
 				return "../articles/viewArticles";
 			} 
 			catch (ServiceException e) {
